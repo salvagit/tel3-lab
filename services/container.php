@@ -12,7 +12,7 @@ $container['db'] = $container->share(function($container) {
         'mysql',
         'localhost',
         '3306',
-        'empleojo_empleo_empleojoven2014'
+        'tel3'
     );
 
     $user = 'root';
