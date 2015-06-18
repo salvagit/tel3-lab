@@ -20,19 +20,32 @@ $app->get('/perfiles', function() use ($app)
  */
 $app->post('/perfiles', function() use ($app) 
 {
+	header("Access-Control-Allow-Origin: *");
 	$name = $_POST['name'];
 
-	$sql = <<<SQL
-INSERT INTO perfiles (id, name) VALUES (NULL, $name);
-SQL;
-	try {
-   		$response['status'] = 'success'; 
-   		$response['message'] = $app['db']->getAll($sql);
-	} catch (Exception $e) {
-   		$response['status'] = 'success'; 
-   		$response['message'] = $app['db']->getAll($sql);
-	}
- 	return  $app->json($response);
+	$perfil = $app['db']->dispense('perfiles');
+
+	$perfil->name = $name;
+
+ 	try {
+ 		$response['success'] = true;
+ 		$response['message'] = $app['db']->store($perfil);
+
+ 		if (is_integer($response['message'])) {
+ 			try {
+ 				$id_perfil = $response['message'];
+ 			} catch (Exception $e) {
+		 		$response['success'] = false;
+		 		$response['message'] = $e->getMessage();
+ 			}
+ 		}
+
+ 	} catch (Exception $e) {
+ 		$response['success'] = false;
+ 		$response['message'] = $e->getMessage();
+ 	}
+ 	return $app->json($response);
+
 });
 
 
@@ -47,7 +60,7 @@ $app->put('/perfiles/{id}', function($id, Request $request) use ($app) {
 
 	$perfil->name = '';
 
-	var_dump($request->getMethod());
+	// var_dump($request->getMethod());
 	var_dump($request->get('name'));
 	// var_dump($app['request']->getContent());
 	// var_dump($app['request']->getContent());

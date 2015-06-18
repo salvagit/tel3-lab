@@ -12,11 +12,11 @@ $container['db'] = $container->share(function($container) {
         'mysql',
         'localhost',
         '3306',
-        'tel3'
+        'tel3labs'
     );
 
     $user = 'root';
-    $pass = '1234';
+    $pass = '';
 
     RedBean_Facade::setup($dsn, $user, $pass);
     return new RedBean_Facade;
