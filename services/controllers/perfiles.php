@@ -30,22 +30,11 @@ $app->post('/perfiles', function() use ($app)
  	try {
  		$response['success'] = true;
  		$response['message'] = $app['db']->store($perfil);
-
- 		if (is_integer($response['message'])) {
- 			try {
- 				$id_perfil = $response['message'];
- 			} catch (Exception $e) {
-		 		$response['success'] = false;
-		 		$response['message'] = $e->getMessage();
- 			}
- 		}
-
  	} catch (Exception $e) {
  		$response['success'] = false;
  		$response['message'] = $e->getMessage();
  	}
  	return $app->json($response);
-
 });
 
 
