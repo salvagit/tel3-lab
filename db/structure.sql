@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.0
+-- version 4.3.11
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 22-06-2015 a las 23:25:32
--- Versión del servidor: 5.6.23
--- Versión de PHP: 5.5.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 23-06-2015 a las 22:55:41
+-- Versión del servidor: 5.6.24
+-- Versión de PHP: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `perfiles`;
 CREATE TABLE IF NOT EXISTS `perfiles` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `perfiles`
 --
 ALTER TABLE `perfiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --

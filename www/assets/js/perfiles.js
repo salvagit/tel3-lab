@@ -1,5 +1,6 @@
 // on document ready
 $(document).ready(function() {
+/*
 	// get perfiles
 	$.ajax({
 		url: '/perfiles',
@@ -46,6 +47,7 @@ function appendProfile (id, name) {
 function hookActions () {
 
 	$('.editar').on('click', function(e) {
+
 		var el = $(e.target);
 		var id = el.parent().attr('id');
 		var oldName = $(e.target).html();
@@ -65,19 +67,33 @@ function hookActions () {
 	$('.borrar').on('click', function(e) {
 		var el = $(e.target);
 		var id = el.parent().attr('id');
+		// get html del elemento hermano
 		var name = el.siblings().html();
 		if (confirm('confirma borrar ' + name + '?')) {
 			$.ajax({
 				url: '/perfiles/'+id,
 				method: 'delete',
-				data: {name: name},
 				success: function(response) {
 					el.parent()
-					.fadeOut('slow', function () {
+					.fadeOut('fast', function () {
 						$(this).remove();
 					});
 				}
 			});
 		}
 	});
-}
+*/
+
+$.ajax({
+  url: '/perfiles',
+  success: function(data){
+  	// var records = JSON.parse(data);
+    $('#my-ajax-table').dynatable({
+      dataset: {
+        records: data
+      }
+    });
+  }
+});
+
+});
