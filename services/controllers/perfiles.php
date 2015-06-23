@@ -1,7 +1,9 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+$app['debug'] = true;
 
 /**
  * Get
@@ -18,14 +20,11 @@ $app->get('/perfiles', function() use ($app)
  * Post
  * 
  */
-$app->post('/perfiles', function() use ($app) 
+$app->post('/perfiles', function(Request $request) use ($app) 
 {
-	header("Access-Control-Allow-Origin: *");
-	$name = $_POST['name'];
-
 	$perfil = $app['db']->dispense('perfiles');
 
-	$perfil->name = $name;
+	$perfil->name = $request->get('name');
 
  	try {
  		$response['success'] = true;
@@ -42,17 +41,12 @@ $app->post('/perfiles', function() use ($app)
  * Put
  * 
  */
-$app->put('/perfiles/{id}', function($id, Request $request) use ($app) {
+$app->put('/perfiles/{id}', function(Request $request, $id) use ($app)
+{
 	header("Access-Control-Allow-Origin: *");
-	
-	$perfil = $app['db']->load('perfil', $id);
+	$perfil = $app['db']->load('perfiles', $id);
 
-	$perfil->name = '';
-
-	// var_dump($request->getMethod());
-	var_dump($request->get('name'));
-	// var_dump($app['request']->getContent());
-	// var_dump($app['request']->getContent());
+	$perfil->name = $request->request->get('name');
 
  	try {
  		$response['success'] = true;
@@ -69,8 +63,8 @@ $app->put('/perfiles/{id}', function($id, Request $request) use ($app) {
  * Delete
  * 
  */
-$app->delete('/perfiles/{id}', function($id) use ($app) {
-	header("Access-Control-Allow-Origin: *");
+$app->delete('/perfiles/{id}', function($id) use ($app)
+{
 	$perfil = $app['db']->load('perfiles', $id);
 	try {
  		$response['success'] = true;

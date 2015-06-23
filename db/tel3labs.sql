@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.4.0
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2015 a las 23:00:19
--- Versión del servidor: 5.6.24
--- Versión de PHP: 5.6.8
+-- Servidor: localhost
+-- Tiempo de generación: 22-06-2015 a las 23:25:32
+-- Versión del servidor: 5.6.23
+-- Versión de PHP: 5.5.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,27 +25,14 @@ USE `tel3labs`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `perfil`
---
-
-DROP TABLE IF EXISTS `perfil`;
-CREATE TABLE IF NOT EXISTS `perfil` (
-  `id` int(11) unsigned NOT NULL,
-  `name` tinyint(1) unsigned DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `perfiles`
 --
 
 DROP TABLE IF EXISTS `perfiles`;
 CREATE TABLE IF NOT EXISTS `perfiles` (
   `id` int(11) NOT NULL,
-  `nombre` text NOT NULL,
   `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -66,12 +53,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 --
--- Indices de la tabla `perfil`
---
-ALTER TABLE `perfil`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `perfiles`
 --
 ALTER TABLE `perfiles`
@@ -88,15 +69,10 @@ ALTER TABLE `usuarios`
 --
 
 --
--- AUTO_INCREMENT de la tabla `perfil`
---
-ALTER TABLE `perfil`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT de la tabla `perfiles`
 --
 ALTER TABLE `perfiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
