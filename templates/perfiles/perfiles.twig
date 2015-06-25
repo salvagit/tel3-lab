@@ -1,0 +1,37 @@
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+    <li role="presentation" class="active">
+      <a href="#list" aria-controls="list" role="tab" data-toggle="tab">
+        list
+      </a>
+    </li>
+
+    <li role="presentation">
+      <a href="#create" aria-controls="create" role="tab" data-toggle="tab">
+        create
+      </a>
+    </li>
+
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="list">
+      {% include 'perfiles/list.twig' %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="create">
+      {% include 'perfiles/create.twig' %}
+    </div>
+  </div>
+
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+{% include 'perfiles/modal.twig' %}

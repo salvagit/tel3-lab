@@ -12,12 +12,13 @@ $app['debug'] = true;
 $app->get('/perfiles', function() use ($app) 
 {
    	$data = $app['db']->getAll('SELECT * FROM perfiles');
-
-   	$response['records'] = $data;
-   	$response['queryRecordCount'] = count($data);
-   	$response['totalRecordCount'] = count($data);
-
  	return  $app->json($data);
+});
+
+$app->get('/listperfiles', function() use ($app) 
+{
+ 	$params['content'] = 'perfiles/perfiles.twig';
+   	return $app['twig']->render('layout.twig',$params);
 });
 
 /**

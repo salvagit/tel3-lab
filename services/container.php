@@ -5,6 +5,10 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $container = new Pimple;
 
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/../templates',
+));
+
 $container['db'] = $container->share(function($container) {
 
     $dsn = sprintf(

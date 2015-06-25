@@ -13,6 +13,7 @@
     ],
     "require": {
         "silex/silex": "~1.0",
-        "gabordemooij/redbean": "3.5.*"
+        "gabordemooij/redbean": "3.5.*",
+        "twig/twig": "1.18.*"
     }
 }
