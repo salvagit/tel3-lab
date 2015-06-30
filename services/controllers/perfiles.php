@@ -3,22 +3,19 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app['debug'] = true;
-
 /**
  * Get
  * 
  */
-$app->get('/perfiles', function() use ($app) 
+$app->get('/get-perfiles', function() use ($app) 
 {
    	$data = $app['db']->getAll('SELECT * FROM perfiles');
  	return  $app->json($data);
 });
 
-$app->get('/listperfiles', function() use ($app) 
+$app->get('/perfiles', function(Request $request) use ($app) 
 {
- 	$params['content'] = 'perfiles/perfiles.twig';
-   	return $app['twig']->render('layout.twig',$params);
+    return $app['twig']->render('perfiles/perfiles.twig');
 });
 
 /**
@@ -27,18 +24,42 @@ $app->get('/listperfiles', function() use ($app)
  */
 $app->post('/perfiles', function(Request $request) use ($app) 
 {
-	$perfil = $app['db']->dispense('perfiles');
+    $file_bag = $request->files;
 
-	$perfil->name = $request->get('name');
+    if ($file_bag) {
+        if ( $file_bag->has('image') )
+        {
+            $image = $file_bag->get('image');
+            $image->move(
+                $app['upload_folder'], 
+                tempnam($app['upload_folder'],'img_')
+            );
+        }
 
- 	try {
- 		$response['success'] = true;
- 		$response['message'] = $app['db']->store($perfil);
- 	} catch (Exception $e) {
- 		$response['success'] = false;
- 		$response['message'] = $e->getMessage();
- 	}
- 	return $app->json($response);
+        // This is just temporary.
+        // Replace with a RedirectResponse to Gallery
+
+        header("Location: /view");
+        return 1;
+
+        // return print_r( $request->files, true );
+
+    } else {
+
+    	$perfil = $app['db']->dispense('perfiles');
+
+    	$perfil->name = $request->get('name');
+
+     	try {
+     		$response['success'] = true;
+     		$response['message'] = $app['db']->store($perfil);
+     	} catch (Exception $e) {
+     		$response['success'] = false;
+     		$response['message'] = $e->getMessage();
+     	}
+     	return $app->json($response);
+    }
+
 });
 
 

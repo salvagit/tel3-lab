@@ -3,8 +3,6 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app['debug'] = true;
-
 /**
  * Get
  * 
@@ -15,9 +13,8 @@ $app->get('/usuarios', function() use ($app)
 
    	// seteando parametros para la vista
    	$params['data'] = $data;
-   	$params['content'] = 'usuarios.twig';
    	// renderisamos
-   	return $app['twig']->render('layout.twig',$params);
+   	return $app['twig']->render('usuarios.twig', $params);
 });
 
 /**

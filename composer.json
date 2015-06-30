@@ -14,6 +14,8 @@
     "require": {
         "silex/silex": "~1.0",
         "gabordemooij/redbean": "3.5.*",
-        "twig/twig": "1.18.*"
+        "twig/twig": "1.18.*",
+        "imagine/imagine": "0.4.*",
+        "neutron/silex-imagine-provider" : "0.1.*"
     }
 }

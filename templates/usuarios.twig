@@ -1,6 +1,9 @@
+{% extends 'layout.twig' %}
 
-<ul>
-    {% for user in data %}
-        <li>{{ user.name }} | {{ user.mail }}</li>
-    {% endfor %}
-</ul>
+{% block content %}
+	<ul>
+	    {% for user in data %}
+	        <li>{{ user.name }} | {{ user.mail }}</li>
+	    {% endfor %}
+	</ul>
+{% endblock content %}

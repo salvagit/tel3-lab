@@ -85,7 +85,7 @@ function hookActions () {
 */
 
 $.ajax({
-  url: '/perfiles',
+  url: '/get-perfiles',
   success: function(data){
   	// var records = JSON.parse(data);
     $('#my-ajax-table').dynatable({

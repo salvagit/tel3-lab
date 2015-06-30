@@ -1,37 +1,51 @@
-<div>
+{% extends 'layout.twig' %}
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
 
-    <li role="presentation" class="active">
-      <a href="#list" aria-controls="list" role="tab" data-toggle="tab">
-        list
-      </a>
-    </li>
+{% block content %}
+  <div>
 
-    <li role="presentation">
-      <a href="#create" aria-controls="create" role="tab" data-toggle="tab">
-        create
-      </a>
-    </li>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
 
-  </ul>
+      <li role="presentation" class="active">
+        <a href="#list" aria-controls="list" role="tab" data-toggle="tab">
+          list
+        </a>
+      </li>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="list">
-      {% include 'perfiles/list.twig' %}
+      <li role="presentation">
+        <a href="#create" aria-controls="create" role="tab" data-toggle="tab">
+          create
+        </a>
+      </li>
+
+      <li role="presentation">
+        <a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">
+          upload
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="list">
+        {% include 'perfiles/list.twig' %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="create">
+        {% include 'perfiles/create.twig' %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="upload">
+        {% include 'perfiles/upload.twig' %}
+      </div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="create">
-      {% include 'perfiles/create.twig' %}
-    </div>
+
   </div>
 
-</div>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
-
-{% include 'perfiles/modal.twig' %}
+  {% include 'perfiles/modal.twig' %}
+{% endblock content %}

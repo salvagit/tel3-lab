@@ -4,6 +4,9 @@ use Silex\Application;
 
 $app = new Application();
 
+$app['debug']=true;
+$app['upload_folder']=__DIR__ . '/../www/assets/uploads';
+
 // little helper...
 $app['json.request'] = function($app) {
     return json_decode($app['request']->getContent());
