@@ -1,0 +1,41 @@
+{% extends 'layout.twig' %}
+{% block content %}
+{% include 'ficha/fichaE.twig' with {'titulo':'maxi'} %}
+
+{% set a = perfil[0].id * 2 %}
+<h1>{{titulo}} {{a}}</h1>
+<table class='table table-bordered'>
+	<tr>
+		<td>
+			id
+		</td>
+		<td>
+			name
+		</td>
+	</tr>
+	<tr>
+		<td>
+			{{perfil[0].id}}
+		</td>
+		<td>
+			{{perfil[0].name}}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			id
+		</td>
+		<td>
+			apellido
+		</td>
+	</tr>
+	<tr>
+		<td>
+			{{usuario[0].id}}
+		</td>
+		<td>
+			{{usuario[0].apellido}}
+		</td>
+	</tr>
+</table>
+{% endblock content %}

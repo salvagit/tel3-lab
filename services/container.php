@@ -22,7 +22,7 @@ $container['db'] = $container->share(function($container) {
     );
 
     $user = 'root';
-    $pass = '1234';
+    $pass = '';
 
     RedBean_Facade::setup($dsn, $user, $pass);
     return new RedBean_Facade;
