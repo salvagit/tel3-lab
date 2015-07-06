@@ -84,16 +84,16 @@ function hookActions () {
 	});
 */
 
-$.ajax({
-  url: '/get-perfiles',
-  success: function(data){
-  	// var records = JSON.parse(data);
-    $('#my-ajax-table').dynatable({
-      dataset: {
-        records: data
-      }
-    });
-  }
-});
+	$.ajax({
+	  url: '/get-perfiles',
+	  success: function(data){
+	  	// var records = JSON.parse(data);
+	    $('#my-ajax-table').dynatable({
+	      dataset: {
+	        records: data
+	      }
+	    });
+	  }
+	});
 
 });

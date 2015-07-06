@@ -7,14 +7,30 @@ use Symfony\Component\HttpFoundation\Response;
  * Get
  * 
  */
+$app->get('/getusuarios', function() use ($app) 
+{
+   	$data = $app['db']->getAll('SELECT * FROM usuarios');
+   	
+   	foreach ($data as $k => &$v) {
+   		$v['actions'] = $app['twig']->render('usuarios/actions.twig', $v);
+   	}
+
+   	return $app->json($data);
+});
+
+/**
+ * Get
+ * 
+ */
 $app->get('/usuarios', function() use ($app) 
 {
    	$data = $app['db']->getAll('SELECT * FROM usuarios');
 
    	// seteando parametros para la vista
    	$params['data'] = $data;
+   	$params['basepath'] = 'http://tel3.labs/';
    	// renderisamos
-   	return $app['twig']->render('usuarios.twig', $params);
+   	return $app['twig']->render('usuarios/usuarios.twig', $params);
 });
 
 /**

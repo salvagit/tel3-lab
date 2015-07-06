@@ -12,7 +12,7 @@ $app->get('/get-perfiles', function() use ($app)
    	$data = $app['db']->getAll('SELECT * FROM perfiles');
  	return  $app->json($data);
 });
-//
+
 $app->get('/ficha/{id}', function($id) use ($app) 
 {
     $dataPerfiles = $app['db']->getAll("SELECT * FROM perfiles where id = $id");
@@ -27,9 +27,11 @@ $app->get('/ficha/{id}', function($id) use ($app)
 
     return $app['twig']->render('ficha/fichaT.twig',$respuesta);    
 });
+
 $app->get('/perfiles', function(Request $request) use ($app) 
 {
-    return $app['twig']->render('perfiles/perfiles.twig');
+    $params['basepath'] = 'http://tel3.labs/';
+    return $app['twig']->render('perfiles/perfiles.twig', $params);
 });
 
 /**
@@ -75,7 +77,6 @@ $app->post('/perfiles', function(Request $request) use ($app)
     }
 
 });
-
 
 /**
  * Put
