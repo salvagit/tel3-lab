@@ -3,14 +3,6 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Get
- * 
- */
-$app->get('/hola', function() use ($app) 
-{
-      return 'hola';
-});
 
 /**
  * Get
@@ -33,7 +25,13 @@ $app->get('/getusuarios', function() use ($app)
  */
 $app->get('/getusuario/{id}', function($id) use ($app) 
 {
-   	$data = $app['db']->getAll("SELECT * FROM usuarios WHERE id = $id");
+      $sql = <<<SQL
+SELECT u.*, up.perfiles_id as perfil
+FROM usuarios u 
+JOIN usuarios_perfiles up ON (up.usuarios_id = u.id)
+WHERE u.id = $id
+SQL;
+   	$data = $app['db']->getAll($sql);
    	return $app->json($data);
 });
 
@@ -43,11 +41,10 @@ $app->get('/getusuario/{id}', function($id) use ($app)
  */
 $app->get('/usuarios', function() use ($app) 
 {
+      // get users from db
    	$data = $app['db']->getAll('SELECT * FROM usuarios');
-
    	// seteando parametros para la vista
    	$params['data'] = $data;
-   	$params['basepath'] = 'http://tel3-labs.local/';
    	// renderisamos
    	return $app['twig']->render('usuarios/usuarios.twig', $params);
 });
@@ -65,23 +62,24 @@ $app->post('/usuario', function(Request $request) use ($app)
 
    $user_id = $app['db']->store($user);
 
-	$perfiles_id = $request->get('pefil_id');
-/*
+	$perfiles_id = $request->get('perfil_id');
+
    // do query insert maxi
    $sql = <<<SQL
-INSERT INTO usuarios_perfiles (usuario_id, perfil_id) 
+INSERT INTO usuarios_perfiles (usuarios_id, perfiles_id) 
 VALUES ($user_id, $perfiles_id)
 SQL;
-   $data = $app['db']->getAll($sql);
+   $response['sql'] = $sql;
+   $response['data'] = $app['db']->getAll($sql);
 
    try {
       $response['success'] = true;
- 	    $response['message'] = $app['db']->store($user);
+      $response['message'] = $app['db']->store($user);
    } catch (Exception $e) {
  		$response['success'] = false;
  		$response['message'] = $e->getMessage();
  	}
-*/
+
  	return $app->json($response);
 });
 
@@ -96,6 +94,18 @@ $app->put('/usuario/{id}', function(Request $request, $id) use ($app)
 
    $usuario->name = $request->request->get('name');
    $usuario->mail = $request->request->get('mail');
+   $perfiles_id = $request->request->get('perfil_id');
+
+   // borrar todos los perfiles de este usuario.
+   $response['delete'] = $app['db']->getAll("DELETE FROM usuarios_perfiles WHERE usuarios_id = $id");
+
+   // do query insert maxi
+   $sql = <<<SQL
+INSERT INTO usuarios_perfiles (usuarios_id, perfiles_id) 
+VALUES ($id, $perfiles_id)
+SQL;
+   $response['sql'] = $sql;
+   $response['data'] = $app['db']->getAll($sql);
 
    try {
       $response['success'] = true;

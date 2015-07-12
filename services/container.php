@@ -6,8 +6,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $container = new Pimple;
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/../templates',
-     'twig.globals' => array('basepath' => 'http://tel3.labs/'),
+    'twig.path' => __DIR__.'/../templates'
 ));
 
 $app->register(new Neutron\Silex\Provider\ImagineServiceProvider());
@@ -23,7 +22,7 @@ $container['db'] = $container->share(function($container) {
     );
 
     $user = 'root';
-    $pass = '';
+    $pass = '1234';
 
     RedBean_Facade::setup($dsn, $user, $pass);
     return new RedBean_Facade;

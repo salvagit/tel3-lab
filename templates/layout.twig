@@ -1,3 +1,4 @@
+{% set basepath = 'http://tel3.labs/' %}
 <!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -6,9 +7,11 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="{{basepath}}/assets/css/libs/jquery.dynatable.css">
-        <link rel="stylesheet" type="text/css" href="{{basepath}}/assets/css/perfiles.css">
-        <link rel="stylesheet" type="text/css" href="{{basepath}}/assets/css/libs/bootstrap.css">
+        
+        
+        <link rel="stylesheet" type="text/css" href="{{basepath}}/assets/css/libs/jquery.dynatable.css" />
+        <link rel="stylesheet" type="text/css" href="{{basepath}}/assets/css/perfiles.css" />
+        <link rel="stylesheet" type="text/css" href="{{basepath}}/assets/css/libs/bootstrap.css" />
 
     </head>
     <body>
@@ -16,7 +19,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        {% include 'scripts.twig' %}
+        {% include 'scripts.twig' with {basepath : basepath} %}
 
         {% include 'header.twig' %}
 

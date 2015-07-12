@@ -20,8 +20,6 @@ $app->get('/ficha/{id}', function($id) use ($app)
     $respuesta['perfil'] = $dataPerfiles;
     $respuesta['usuario'] = $dataUsuarios;
     $respuesta['titulo'] = "prueba";
-    $respuesta['basepath'] = "http://tel3-lab.local:8080";
-
 
     //return  $app->json($respuesta);
 
@@ -30,8 +28,7 @@ $app->get('/ficha/{id}', function($id) use ($app)
 
 $app->get('/perfiles', function(Request $request) use ($app) 
 {
-    $params['basepath'] = 'http://tel3.labs/';
-    return $app['twig']->render('perfiles/perfiles.twig', $params);
+    return $app['twig']->render('perfiles/perfiles.twig');
 });
 
 /**
