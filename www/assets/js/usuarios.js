@@ -2,11 +2,12 @@
 var isEdit = false;
 var id = '';
 var firstLoad = true;
+var dynatable = {}
 
 // on document ready
 $(document).ready(function() {
 
-	var dynatable = $('#usuarios-table');
+	dynatable = $('#usuarios-table');
 	
 	// bind dynatable event
 	dynatable.bind('dynatable:afterUpdate', function(e, dynatable){
@@ -17,14 +18,14 @@ $(document).ready(function() {
 	$.ajax({
 	  url: '/getusuarios', // Call getusuarios service on services/controllers/usuarios.php
 		success: function(data) {
-			dynatable.dynatable({
+			dynatable = dynatable.dynatable({
 				dataset: {
 					records: data
 				}
 			}).data('dynatable');
 		},
-		complete: function() {
-			hookActions();
+		complete: function (resp) {
+			refreshTable();
 		}
 	});
 
@@ -38,8 +39,8 @@ $(document).ready(function() {
 /**
  * Modal Events
  */
-	// after show modal
-	$('#usuariosForm').on('shown.bs.modal', function() {
+	// after modal call
+	$('#usuariosForm').on('show.bs.modal', function() {
 		onshownBsModal(this);
 	});
 	// on save user button click.
@@ -59,7 +60,6 @@ $(document).ready(function() {
  * @return {[type]} [description]
  */
 function hookActions() {
-
 	$('.edit').on('click', function(e) {
 		editAction(e);
 	});
@@ -107,18 +107,9 @@ function onshownBsModal(modal) {
 		$.ajax({
 			url: '/getusuario/'+id,
 			success: function(response) {
-				console.log(response);
 				$name.val(response[0].name);
 				$mail.val(response[0].mail);
 				$perfil.val(response[0].perfil);
-				/* 
-				// set select option
-				$perfil.filter(function() {
-console.log($(this).text());
-				    //may want to use $.trim in here
-				    return $(this).text() == response[0].perfiles; 
-				}).prop('selected', true);
-				*/
 			}
 		});
 	}
@@ -149,6 +140,9 @@ function onSubmit (form) {
 		},
 		error: function (resp) {
 			console.error(resp);
+		},
+		complete: function () {
+			refreshTable();
 		}
 	});
 }
@@ -173,16 +167,27 @@ function deleteAction(e) {
 			url: '/usuario/'+id,
 			method:'delete',
 			success: function(response){
-				console.log(response);
+				refreshTable();
 			}
 		});
 	}
 }
 
-function getId (e) {
+function getId(e) {
 	if( "SPAN" === $(e.target).prop("tagName")) {
 		return $(e.target).parent().attr('id');
 	} else {
 		return $(e.target).attr('id');
 	}
+}
+
+function refreshTable() {
+	$.ajax({
+	  url: '/getusuarios', // Call getusuarios service on services/controllers/usuarios.php
+		success: function(data) {
+            dynatable.records.updateFromJson({records: data});
+            dynatable.records.init();               
+            dynatable.process();  
+		}
+	});
 }
